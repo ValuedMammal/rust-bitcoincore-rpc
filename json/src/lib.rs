@@ -1617,7 +1617,7 @@ pub struct GetBlockTemplateResult {
     pub min_time: u64,
     /// List of things that may be changed by the client before submitting a
     /// block
-    pub mutable: Vec<GetBlockTemplateResulMutations>,
+    pub mutable: Vec<GetBlockTemplateResultMutations>,
     /// A range of valid nonces
     #[serde(with = "crate::serde_hex", rename = "noncerange")]
     pub nonce_range: Vec<u8>,
@@ -1685,12 +1685,12 @@ pub enum GetBlockTemplateResultRules {
 }
 
 /// Enum to representing mutable parts of the block template. This does only
-/// cover the muations implemented in Bitcoin Core. More mutations are defined
+/// cover the mutations implemented in Bitcoin Core. More mutations are defined
 /// in [BIP-23](https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki#Mutations),
 /// but not implemented in the getblocktemplate implementation of Bitcoin Core.
 #[derive(Copy, Clone, PartialEq, Eq, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
-pub enum GetBlockTemplateResulMutations {
+pub enum GetBlockTemplateResultMutations {
     /// The client is allowed to modify the time in the header of the block
     Time,
     /// The client is allowed to add transactions to the block
