@@ -536,6 +536,16 @@ impl GetRawTransactionResultVinScriptSig {
 
 #[derive(Clone, PartialEq, Eq, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
+pub struct GetRawTransactionResultVinPrevout {
+    pub generated: bool,
+    pub height: u64,
+    #[serde(with = "bitcoin::amount::serde::as_btc")]
+    pub value: Amount,
+    pub script_pub_key: GetRawTransactionResultVoutScriptPubKey,
+}
+
+#[derive(Clone, PartialEq, Eq, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct GetRawTransactionResultVin {
     pub sequence: u32,
     /// The raw scriptSig in case of a coinbase tx.
@@ -550,6 +560,8 @@ pub struct GetRawTransactionResultVin {
     /// Not provided for coinbase txs.
     #[serde(default, deserialize_with = "deserialize_hex_array_opt")]
     pub txinwitness: Option<Vec<Vec<u8>>>,
+    /// Not provided for coinbase txs.
+    pub prevout: Option<GetRawTransactionResultVinPrevout>,
 }
 
 impl GetRawTransactionResultVin {
